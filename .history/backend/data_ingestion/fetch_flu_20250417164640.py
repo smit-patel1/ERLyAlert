@@ -23,6 +23,6 @@ def fetch_flu(region: str) -> dict:
         json.dump(structured_data, f, indent=2)
     return structured_data
 
-# call
+# Example call
 if __name__ == "__main__":
     fetch_flu("Charlotte")

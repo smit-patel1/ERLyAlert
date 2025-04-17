@@ -20,20 +20,16 @@ def fetch_weather(city: str) -> dict:
     data = response.json()
     structured_data = []
 
-    for entry in data["list"]:
+    for e in data["list"]:
         structured_data.append({
-            "datetime": entry["dt_txt"],
+            "datetime": e["dt_txt"],
             "temperature": entry["main"]["temp"],
             "weather": entry["weather"][0]["description"]
         })
 
-    output_path = f"backend/data/external_factors/weather_{city}.json"
+    output_path = f"backend/data/weather_{city}.json"
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w") as f:
         json.dump(structured_data, f, indent=2)
 
     return structured_data
-
-# call
-if __name__ == "__main__":
-    fetch_weather("Charlotte")

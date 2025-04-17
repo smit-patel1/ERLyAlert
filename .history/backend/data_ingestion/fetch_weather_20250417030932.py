@@ -33,7 +33,3 @@ def fetch_weather(city: str) -> dict:
         json.dump(structured_data, f, indent=2)
 
     return structured_data
-
-# call
-if __name__ == "__main__":
-    fetch_weather("Charlotte")

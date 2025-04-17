@@ -7,7 +7,8 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-API_KEY = os.getenv("WEATHER_API_KEY")
+API_KEY = os.getenv("a3b755a0f418212f476b0af7805a3c9d
+")
 
 def fetch_weather(city: str) -> dict:
     url = f"http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={API_KEY}&units=metric"
@@ -27,6 +28,7 @@ def fetch_weather(city: str) -> dict:
             "weather": entry["weather"][0]["description"]
         })
 
+    # Save it
     output_path = f"backend/data/external_factors/weather_{city}.json"
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w") as f:
@@ -34,6 +36,6 @@ def fetch_weather(city: str) -> dict:
 
     return structured_data
 
-# call
+# Example call
 if __name__ == "__main__":
     fetch_weather("Charlotte")

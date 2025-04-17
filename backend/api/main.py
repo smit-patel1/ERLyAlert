@@ -1,5 +1,18 @@
-"""
-FastAPI backend entry point.
-API endpoints for generating ER forecasts and returning risk insights will go here.
-Frontend (Streamlit) will call these endpoints to get model predictions and factor data.
-"""
+from fastapi import FastAPI
+from typing import List
+from backend.models.prophet_model import forecast_er_visits
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "ERLyAlert API is running."}
+
+@app.get("/forecast")
+def get_forecast(days: int = 7):
+    forecast = forecast_er_visits(days)
+    return {
+        "region": "Charlotte",
+        "forecast_days": days,
+        "forecast": forecast
+    }

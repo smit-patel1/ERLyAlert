@@ -1,5 +1,5 @@
 """
-Fetch weather forecast data from external APIs and stuff
+Fetch weather forecast data from external APIs
 """
 import requests
 import json
@@ -27,13 +27,10 @@ def fetch_weather(city: str) -> dict:
             "weather": entry["weather"][0]["description"]
         })
 
+    # Save it
     output_path = f"backend/data/external_factors/weather_{city}.json"
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w") as f:
         json.dump(structured_data, f, indent=2)
 
     return structured_data
-
-# call
-if __name__ == "__main__":
-    fetch_weather("Charlotte")

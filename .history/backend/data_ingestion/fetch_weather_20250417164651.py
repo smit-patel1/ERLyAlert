@@ -1,5 +1,5 @@
 """
-Fetch weather forecast data from external APIs and stuff
+Fetch weather forecast data from external APIs
 """
 import requests
 import json
@@ -34,6 +34,6 @@ def fetch_weather(city: str) -> dict:
 
     return structured_data
 
-# call
+# Example call
 if __name__ == "__main__":
     fetch_weather("Charlotte")

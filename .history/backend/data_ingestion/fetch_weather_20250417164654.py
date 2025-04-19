@@ -1,5 +1,5 @@
 """
-Fetch weather forecast data from external APIs and stuff
+Fetch weather forecast data from external APIs
 """
 import requests
 import json

@@ -6,6 +6,7 @@ import json
 import os
 from dotenv import load_dotenv
 
+# Load environment variables from .env file
 load_dotenv()
 API_KEY = os.getenv("EVENTBRITE_API_KEY")
 
@@ -39,6 +40,6 @@ def fetch_events(city: str) -> dict:
 
     return events
 
-#  call
+# Example call
 if __name__ == "__main__":
     fetch_events("Charlotte")

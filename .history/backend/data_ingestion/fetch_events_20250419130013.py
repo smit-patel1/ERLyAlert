@@ -6,6 +6,7 @@ import json
 import os
 from dotenv import load_dotenv
 
+# Load environment variables from .env file
 load_dotenv()
 API_KEY = os.getenv("EVENTBRITE_API_KEY")
 
@@ -32,6 +33,7 @@ def fetch_events(city: str) -> dict:
             "url": event.get("url")
         })
 
+    # Save to file
     output_path = f"backend/data/external_factors/events_{city}.json"
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w") as f:
@@ -39,6 +41,6 @@ def fetch_events(city: str) -> dict:
 
     return events
 
-#  call
+# Example call
 if __name__ == "__main__":
     fetch_events("Charlotte")

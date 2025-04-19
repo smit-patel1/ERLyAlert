@@ -9,20 +9,18 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def fetch_flu(region: str = "North Carolina") -> dict:
-    client = Socrata("data.cdc.gov", None)  # You can add an app token later if needed
-
+    client = Socrata("data.cdc.gov", None)
     results = client.get(
-        "bi63-dtpu",
+        "qx9z-2fkw",
         limit=7,
         order="week_end DESC",
-        where=f"region='{region}'"
+        where=f"region_description='{region}'"
     )
-
     structured_data = []
     for entry in results:
         structured_data.append({
             "date": entry["week_end"],
-            "flu_activity_level": entry.get("ili_activity_level", "N/A"),
+            "flu_activity_level": entry.get("activity_level", "N/A"),
             "region": region
         })
 
@@ -33,6 +31,6 @@ def fetch_flu(region: str = "North Carolina") -> dict:
 
     return structured_data
 
-# Example call
+# call
 if __name__ == "__main__":
     fetch_flu("North Carolina")

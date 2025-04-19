@@ -1,202 +1,202 @@
 [
   {
-    "datetime": "2025-04-17 09:00:00",
-    "temperature": 8.27,
-    "weather": "clear sky"
-  },
-  {
-    "datetime": "2025-04-17 12:00:00",
-    "temperature": 9.44,
-    "weather": "clear sky"
-  },
-  {
-    "datetime": "2025-04-17 15:00:00",
-    "temperature": 17.51,
-    "weather": "clear sky"
-  },
-  {
-    "datetime": "2025-04-17 18:00:00",
-    "temperature": 21.68,
-    "weather": "scattered clouds"
-  },
-  {
-    "datetime": "2025-04-17 21:00:00",
-    "temperature": 22.26,
-    "weather": "overcast clouds"
-  },
-  {
-    "datetime": "2025-04-18 00:00:00",
-    "temperature": 18.58,
-    "weather": "overcast clouds"
-  },
-  {
-    "datetime": "2025-04-18 03:00:00",
-    "temperature": 14.01,
-    "weather": "broken clouds"
-  },
-  {
-    "datetime": "2025-04-18 06:00:00",
-    "temperature": 12.3,
-    "weather": "scattered clouds"
-  },
-  {
-    "datetime": "2025-04-18 09:00:00",
-    "temperature": 11.33,
-    "weather": "clear sky"
-  },
-  {
-    "datetime": "2025-04-18 12:00:00",
-    "temperature": 12.52,
-    "weather": "clear sky"
-  },
-  {
-    "datetime": "2025-04-18 15:00:00",
-    "temperature": 20.35,
-    "weather": "clear sky"
-  },
-  {
-    "datetime": "2025-04-18 18:00:00",
-    "temperature": 24.99,
-    "weather": "clear sky"
-  },
-  {
-    "datetime": "2025-04-18 21:00:00",
-    "temperature": 25.9,
-    "weather": "scattered clouds"
-  },
-  {
-    "datetime": "2025-04-19 00:00:00",
-    "temperature": 21.14,
-    "weather": "few clouds"
-  },
-  {
-    "datetime": "2025-04-19 03:00:00",
-    "temperature": 18.68,
-    "weather": "scattered clouds"
-  },
-  {
-    "datetime": "2025-04-19 06:00:00",
-    "temperature": 16.5,
-    "weather": "broken clouds"
-  },
-  {
-    "datetime": "2025-04-19 09:00:00",
-    "temperature": 15.23,
-    "weather": "overcast clouds"
-  },
-  {
-    "datetime": "2025-04-19 12:00:00",
-    "temperature": 15.57,
-    "weather": "broken clouds"
-  },
-  {
-    "datetime": "2025-04-19 15:00:00",
-    "temperature": 22.77,
-    "weather": "few clouds"
-  },
-  {
     "datetime": "2025-04-19 18:00:00",
-    "temperature": 27.98,
-    "weather": "scattered clouds"
+    "temperature": 25.77,
+    "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-19 21:00:00",
-    "temperature": 28.83,
-    "weather": "broken clouds"
+    "temperature": 26.73,
+    "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-20 00:00:00",
-    "temperature": 23.3,
-    "weather": "broken clouds"
+    "temperature": 25.02,
+    "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-20 03:00:00",
-    "temperature": 20.6,
+    "temperature": 20.99,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-20 06:00:00",
-    "temperature": 18.7,
+    "temperature": 18.5,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-20 09:00:00",
-    "temperature": 16.89,
+    "temperature": 17.25,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-20 12:00:00",
-    "temperature": 17,
+    "temperature": 17.63,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-20 15:00:00",
-    "temperature": 23.06,
+    "temperature": 22.88,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-20 18:00:00",
-    "temperature": 24.51,
+    "temperature": 27.55,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-20 21:00:00",
-    "temperature": 26.65,
+    "temperature": 27.15,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-21 00:00:00",
-    "temperature": 22.3,
+    "temperature": 23.26,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-21 03:00:00",
-    "temperature": 20.13,
+    "temperature": 20.48,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-21 06:00:00",
-    "temperature": 17.82,
+    "temperature": 18.62,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-21 09:00:00",
-    "temperature": 16.07,
+    "temperature": 16.8,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-21 12:00:00",
-    "temperature": 17.3,
+    "temperature": 16.96,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-21 15:00:00",
-    "temperature": 24.04,
-    "weather": "broken clouds"
+    "temperature": 22.59,
+    "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-21 18:00:00",
-    "temperature": 28.51,
-    "weather": "broken clouds"
+    "temperature": 27.49,
+    "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-21 21:00:00",
-    "temperature": 27.64,
+    "temperature": 28.92,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-22 00:00:00",
-    "temperature": 23.23,
+    "temperature": 24.62,
     "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-22 03:00:00",
-    "temperature": 20.59,
-    "weather": "light rain"
+    "temperature": 21.23,
+    "weather": "overcast clouds"
   },
   {
     "datetime": "2025-04-22 06:00:00",
-    "temperature": 18.64,
+    "temperature": 19.84,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-22 09:00:00",
+    "temperature": 18.71,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-22 12:00:00",
+    "temperature": 18.56,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-22 15:00:00",
+    "temperature": 23.74,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-22 18:00:00",
+    "temperature": 23.59,
+    "weather": "light rain"
+  },
+  {
+    "datetime": "2025-04-22 21:00:00",
+    "temperature": 21.95,
+    "weather": "light rain"
+  },
+  {
+    "datetime": "2025-04-23 00:00:00",
+    "temperature": 19.97,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-23 03:00:00",
+    "temperature": 18.72,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-23 06:00:00",
+    "temperature": 17.48,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-23 09:00:00",
+    "temperature": 16.85,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-23 12:00:00",
+    "temperature": 17.55,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-23 15:00:00",
+    "temperature": 24.04,
+    "weather": "scattered clouds"
+  },
+  {
+    "datetime": "2025-04-23 18:00:00",
+    "temperature": 27.89,
+    "weather": "scattered clouds"
+  },
+  {
+    "datetime": "2025-04-23 21:00:00",
+    "temperature": 25.17,
+    "weather": "light rain"
+  },
+  {
+    "datetime": "2025-04-24 00:00:00",
+    "temperature": 23.11,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-24 03:00:00",
+    "temperature": 17.74,
+    "weather": "moderate rain"
+  },
+  {
+    "datetime": "2025-04-24 06:00:00",
+    "temperature": 17.16,
+    "weather": "light rain"
+  },
+  {
+    "datetime": "2025-04-24 09:00:00",
+    "temperature": 17.4,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-24 12:00:00",
+    "temperature": 17.86,
+    "weather": "overcast clouds"
+  },
+  {
+    "datetime": "2025-04-24 15:00:00",
+    "temperature": 22.98,
     "weather": "overcast clouds"
   }
 ]

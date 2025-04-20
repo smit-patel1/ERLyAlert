@@ -11,19 +11,20 @@ venv/
 .cache/
 logs/
 
-datasets
-
 .env
-
-trained_models/
-
-*.pkl
-*.joblib
-*.keras
-*.h5
-
-*.csv
-*.json
 
 *.log
 *.zip
+
+
+!datasets/
+!datasets/processed_er_data.csv
+!datasets/*.csv
+
+!trained_models/
+!trained_models/*.pkl
+!trained_models/*.joblib
+!trained_models/*.keras
+
+!backend/data/external_factors/
+!backend/data/external_factors/*.json

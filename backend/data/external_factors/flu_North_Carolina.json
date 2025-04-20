@@ -1,0 +1,44 @@
+[
+  {
+    "date": "2025-04-19",
+    "flu_activity_level": "3",
+    "region": "North Carolina",
+    "data_source": "estimated (API unavailable)"
+  },
+  {
+    "date": "2025-04-12",
+    "flu_activity_level": "3",
+    "region": "North Carolina",
+    "data_source": "estimated (API unavailable)"
+  },
+  {
+    "date": "2025-04-05",
+    "flu_activity_level": "3",
+    "region": "North Carolina",
+    "data_source": "estimated (API unavailable)"
+  },
+  {
+    "date": "2025-03-29",
+    "flu_activity_level": "3",
+    "region": "North Carolina",
+    "data_source": "estimated (API unavailable)"
+  },
+  {
+    "date": "2025-03-22",
+    "flu_activity_level": "3",
+    "region": "North Carolina",
+    "data_source": "estimated (API unavailable)"
+  },
+  {
+    "date": "2025-03-15",
+    "flu_activity_level": "3",
+    "region": "North Carolina",
+    "data_source": "estimated (API unavailable)"
+  },
+  {
+    "date": "2025-03-08",
+    "flu_activity_level": "3",
+    "region": "North Carolina",
+    "data_source": "estimated (API unavailable)"
+  }
+]

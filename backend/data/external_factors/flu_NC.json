@@ -1,0 +1,32 @@
+[
+  {
+    "date": "202510",
+    "flu_activity_level": 3.61622,
+    "region": "nc"
+  },
+  {
+    "date": "202511",
+    "flu_activity_level": 3.01081,
+    "region": "nc"
+  },
+  {
+    "date": "202512",
+    "flu_activity_level": 2.44942,
+    "region": "nc"
+  },
+  {
+    "date": "202513",
+    "flu_activity_level": 2.08515,
+    "region": "nc"
+  },
+  {
+    "date": "202514",
+    "flu_activity_level": 1.6732,
+    "region": "nc"
+  },
+  {
+    "date": "202515",
+    "flu_activity_level": 1.502,
+    "region": "nc"
+  }
+]

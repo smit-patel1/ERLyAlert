@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import json
 import numpy as np
 import pydeck as pdk
+from collections import Counter
 
 st.set_page_config(
     page_title="ERLyAlert - ER Visit Prediction Dashboard",
@@ -117,8 +118,8 @@ def get_forecast_data(county, days=7):
                     "predicted_visits": int(day.get("forecast", 0)),
                     "confidence_lower": int(day.get("yhat_lower", day.get("forecast", 0) * 0.9)),
                     "confidence_upper": int(day.get("yhat_upper", day.get("forecast", 0) * 1.1)),
-                    "risk_level": "High" if day.get("high_risk") else "Low",
-                    "contributing_factors": []
+                    "risk_level":  day.get("risk_level", "High" if day.get("high_risk") else "Low"),
+                    "contributing_factors": day.get("contributing_factors", [])
                 })
 
             return {
@@ -257,7 +258,6 @@ with tab1:
             name='Baseline Average',
             line=dict(color='gray', width=2, dash='dash')
         ))
-        
         fig.update_layout(
             title="Predicted ER Visits by Day",
             xaxis_title="Date",
@@ -265,8 +265,10 @@ with tab1:
             hovermode="x unified",
             height=500,
             margin=dict(l=20, r=20, t=50, b=20),
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            yaxis=dict(range=[0, 1600])
         )
+
         
     else:
         fig = go.Figure()
@@ -391,12 +393,25 @@ with tab2:
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("#### Model Performance")
-    metrics_cols = st.columns(2)
-    with metrics_cols[0]:
-        display_metric_card("MAE", metrics.get("mae", "—"))
-    with metrics_cols[1]:
-        display_metric_card("7-Day Accuracy", metrics.get("accuracy_7day", "N/A"))
+    st.markdown("#### Forecast Insights")
+    insight_cols = st.columns(2)
+
+    with insight_cols[0]:
+        if show_confidence_interval:
+            avg_range = int((df["confidence_upper"] - df["confidence_lower"]).mean())
+            display_metric_card("Avg CI Range", f"± {avg_range} visits")
+        else:
+            display_metric_card("Avg CI Range", "Hidden")
+
+    with insight_cols[1]:
+        all_factors = []
+        for row in df["contributing_factors"]:
+            all_factors.extend([f["type"] for f in row])
+        top_factor = Counter(all_factors).most_common(1)
+        if top_factor:
+            display_metric_card("Top Risk Factor", top_factor[0][0].title())
+        else:
+            display_metric_card("Top Risk Factor", "—")
 
     st.markdown("#### Risk Level Summary")
     risk_counts = {"high": 0, "medium": 0, "low": 0}

@@ -1,6 +1,3 @@
-"""
-Fetch weather forecast data from external APIs and stuff
-"""
 import requests
 import json
 import os

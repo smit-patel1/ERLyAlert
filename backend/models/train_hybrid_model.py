@@ -9,8 +9,6 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_absolute_error
 import joblib
 from datetime import datetime
-import os
-import pandas as pd
 
 def load_er_data(county=None):
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -104,9 +102,13 @@ def train_hybrid_model(county, days_ahead=7):
     forecast_tail["yhat_hybrid"] = forecast_tail["yhat"] + residual_pred
     forecast_tail["high_risk"] = forecast_tail["yhat_hybrid"] > (df["y"].mean() + df["y"].std())
 
-    final_output = forecast_tail[["ds", "yhat_hybrid", "high_risk"]].rename(
+    forecast_tail["yhat_upper"] = forecast_tail["yhat"] * 1.1
+    forecast_tail["yhat_lower"] = forecast_tail["yhat"] * 0.9
+
+    final_output = forecast_tail[["ds", "yhat_hybrid", "yhat_lower", "yhat_upper", "high_risk"]].rename(
         columns={"ds": "date", "yhat_hybrid": "forecast"}
     )
+
 
     merged = df.merge(forecast_df[["ds", "yhat"]], on="ds", how="inner")
     if len(merged) > 0:

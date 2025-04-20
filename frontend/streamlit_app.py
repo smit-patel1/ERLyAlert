@@ -106,7 +106,7 @@ def get_regions():
 @st.cache_data
 def get_forecast_data(county, days=7):
     try:
-        response = requests.get(f"http://localhost:8000/forecast?county={county}&days={days}")
+        response = requests.get(f"{API_URL}/forecast", params={"county": county, "days": days})
         if response.status_code == 200:
             data = response.json()
             forecast = data.get("forecast", [])

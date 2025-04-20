@@ -9,13 +9,18 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_absolute_error
 import joblib
 from datetime import datetime
+import os
+import pandas as pd
 
-def load_er_data(filepath="datasets/processed_er_data.csv", county=None):
+def load_er_data(county=None):
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    filepath = os.path.join(base_dir, "../../datasets/processed_er_data.csv")
     df = pd.read_csv(filepath)
     df["ds"] = pd.to_datetime(df["ds"])
     if county:
         df = df[df["county"] == county].copy()
     return df[["ds", "y"]]
+
 
 def prepare_lstm_data(data, sequence_length=7):
     scaler = MinMaxScaler()

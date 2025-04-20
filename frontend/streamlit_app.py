@@ -195,7 +195,7 @@ metrics = forecast_data.get("metrics", {})
 if filter_by_risk and len(filter_by_risk) < 3:
     forecast = [day for day in forecast if day["risk_level"].lower() in [r.lower() for r in filter_by_risk]]
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Forecast", "Risk Summary", "Ask Forecast", "Export & Notify", "Help & Info"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Forecast", "Risk Summary", "Ask Forecast", "Export", "Help & Info"])
 
 with tab1:
     st.header(f"ER Visit Forecast for {region_info.get('name', selected_county)}")

@@ -12,7 +12,7 @@ from backend.data_ingestion.process_weather_anomalies import fetch_and_save_weat
 from backend.data_ingestion.fetch_flu import fetch_flu
 
 def _load_json(path: str) -> dict:
-    if not Path(path).exists():
+    if not path or not Path(path).exists():
         return {}
     with open(path, "r") as f:
         return json.load(f)

@@ -16,6 +16,7 @@ keras==3.3.3
 requests==2.31.0
 python-dotenv==1.0.1
 sodapy==2.2.0
+delphi-epidata
 
 # Frontend
 streamlit==1.33.0

@@ -8,6 +8,7 @@ import json
 import numpy as np
 import pydeck as pdk
 from collections import Counter
+API_URL = "https://erlyalert.onrender.com"
 
 st.set_page_config(
     page_title="ERLyAlert - ER Visit Prediction Dashboard",
@@ -92,7 +93,7 @@ st.markdown("""
 def get_regions():
     """Fetch available regions from API or use fallback"""
     try:
-        response = requests.get("http://localhost:8000/regions")
+        response = requests.get(f"{API_URL}/regions")
         if response.status_code == 200:
             return response.json()
     except:

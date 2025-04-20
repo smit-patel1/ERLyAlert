@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime
 
 def expand_monthly_to_daily(df):
-    df.columns = df.columns.str.strip().str.replace("\u00a0", " ").str.replace("\xa0", " ")  # Clean whitespace
+    df.columns = df.columns.str.strip().str.replace("\u00a0", " ").str.replace("\xa0", " ")
     print("Cleaned Columns:", df.columns.tolist())
 
     for col in df.columns:
@@ -48,6 +48,6 @@ def preprocess_er_visits_from_new_data(input_path, output_path):
 
 if __name__ == "__main__":
     preprocess_er_visits_from_new_data(
-        "data/NC_ER_DATA.csv",
-        "data/processed_er_data.csv"
+        "datasets/NC_ER_DATA.csv",
+        "datasets/processed_er_data.csv"
     )

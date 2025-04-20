@@ -32,7 +32,6 @@ def train_hybrid_model(county, days_ahead=7):
     df = load_er_data(county=county)
 
     if df.empty or len(df) < 30:
-        print(f"[WARN] Not enough data for {county}")
         return {
             "region": county,
             "forecast_days": days_ahead,
@@ -47,14 +46,7 @@ def train_hybrid_model(county, days_ahead=7):
     lstm_path = f"{model_dir}/lstm_model_{county}.keras"
     scaler_path = f"{model_dir}/scaler_{county}.pkl"
 
-    should_train = not (
-        os.path.exists(prophet_path)
-        and os.path.exists(lstm_path)
-        and os.path.exists(scaler_path)
-    )
-
-    if should_train:
-        print(f"[INFO] Training hybrid model for {county}")
+    if not (os.path.exists(prophet_path) and os.path.exists(lstm_path) and os.path.exists(scaler_path)):
         prophet_model = Prophet()
         prophet_model.fit(df)
 
@@ -74,7 +66,6 @@ def train_hybrid_model(county, days_ahead=7):
         joblib.dump(scaler, scaler_path)
         lstm_model.save(lstm_path)
     else:
-        print(f"[INFO] Loading saved model for {county}")
         prophet_model = joblib.load(prophet_path)
         lstm_model = tf.keras.models.load_model(lstm_path)
         scaler = joblib.load(scaler_path)
@@ -85,7 +76,6 @@ def train_hybrid_model(county, days_ahead=7):
     today = pd.to_datetime(datetime.today().date())
     forecast_df = forecast_df[forecast_df["ds"] >= today]
     if forecast_df.empty:
-        print(f"[ERROR] Prophet returned no future data for {county}")
         return {
             "region": county,
             "forecast_days": days_ahead,
@@ -94,7 +84,6 @@ def train_hybrid_model(county, days_ahead=7):
         }
 
     forecast_tail = forecast_df.head(days_ahead).copy()
-
     recent_residuals = df.merge(forecast_df[["ds", "yhat"]], on="ds", how="inner")
     residuals = recent_residuals["y"] - recent_residuals["yhat"]
 
@@ -105,7 +94,6 @@ def train_hybrid_model(county, days_ahead=7):
         residual_pred_scaled = lstm_model.predict(input_seq_reshaped, verbose=0)
         residual_pred = scaler.inverse_transform(residual_pred_scaled)[0][0]
     else:
-        print(f"[WARN] Not enough residuals for {county}, skipping LSTM residual correction.")
         residual_pred = 0.0
 
     forecast_tail["yhat_hybrid"] = forecast_tail["yhat"] + residual_pred
@@ -119,7 +107,6 @@ def train_hybrid_model(county, days_ahead=7):
     if len(merged) > 0:
         mae = mean_absolute_error(merged["y"], merged["yhat"])
     else:
-        print(f"[WARN] Not enough overlap to compute MAE for {county}.")
         mae = 0
 
     return {

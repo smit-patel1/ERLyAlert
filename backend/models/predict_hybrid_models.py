@@ -1,84 +1,78 @@
+import os
 import pandas as pd
 import numpy as np
-from prophet import Prophet
-import joblib
 import tensorflow as tf
+from prophet import Prophet
+from keras.models import Sequential
+from keras.layers import LSTM, Dense
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_absolute_error
+import joblib
+from datetime import datetime
 
-def load_er_data(filepath="data/processed_er_data.csv"):
+COUNTIES = ["Cabarrus", "Caldwell", "Mecklenburg", "Pitt", "Davidson", "Durham"]
+
+def load_er_data(filepath="datasets/processed_er_data.csv", county=None):
     df = pd.read_csv(filepath)
     df["ds"] = pd.to_datetime(df["ds"])
-    df["y"] = pd.to_numeric(df["y"], errors="coerce")
-    df = df.dropna(subset=["y"])
-    return df
+    if county:
+        df = df[df["county"] == county].copy()
+    return df[["ds", "y"]]
 
-def prepare_lstm_input(data, sequence_length=7):
+def prepare_lstm_data(data, sequence_length=7):
     scaler = MinMaxScaler()
-    scaled = scaler.fit_transform(data.values.reshape(-1, 1))
-    input_seq = scaled[-sequence_length:].reshape(1, sequence_length, 1)
-    return input_seq, scaler
-
-def prepare_lstm_training_data(data, sequence_length=7):
-    scaler = MinMaxScaler()
-    scaled = scaler.fit_transform(data.values.reshape(-1, 1))
+    data_scaled = scaler.fit_transform(data.values.reshape(-1, 1))
     X, y = [], []
-    for i in range(sequence_length, len(scaled)):
-        X.append(scaled[i-sequence_length:i, 0])
-        y.append(scaled[i, 0])
+    for i in range(sequence_length, len(data_scaled)):
+        X.append(data_scaled[i-sequence_length:i, 0])
+        y.append(data_scaled[i, 0])
     X = np.array(X).reshape(-1, sequence_length, 1)
     y = np.array(y)
     return X, y, scaler
 
-def predict_hybrid(days_ahead=7):
-    df = load_er_data()
-    prophet_model = joblib.load("trained_models/prophet_model.pkl")
-    lstm_model = tf.keras.models.load_model("trained_models/lstm_model.keras")
+def train_hybrid_model(county, days_ahead=7):
+    df = load_er_data(county=county)
 
-    future = prophet_model.make_future_dataframe(periods=days_ahead)
-    forecast = prophet_model.predict(future)
+    if df.empty or len(df) < 30:
+        print(f"[WARN] Not enough data for {county}")
+        return
 
-    merged = df.merge(forecast[["ds", "yhat"]], on="ds", how="inner")
-    residuals = merged["y"] - merged["yhat"]
+    model_dir = "trained_models"
+    os.makedirs(model_dir, exist_ok=True)
 
-    input_seq, scaler = prepare_lstm_input(residuals)
-    residual_pred_scaled = lstm_model.predict(input_seq, verbose=0)
-    residual_pred = scaler.inverse_transform(residual_pred_scaled)[0][0]
+    prophet_path = f"{model_dir}/prophet_model_{county}.pkl"
+    lstm_path = f"{model_dir}/lstm_model_{county}.keras"
+    scaler_path = f"{model_dir}/scaler_{county}.pkl"
 
-    forecast_tail = forecast.tail(days_ahead).copy()
-    forecast_tail["yhat_hybrid"] = forecast_tail["yhat"] + residual_pred
-    forecast_tail["high_risk"] = forecast_tail["yhat_hybrid"] > (df["y"].mean() + df["y"].std())
-
-    output = forecast_tail[["ds", "yhat_hybrid", "high_risk"]].rename(
-        columns={"ds": "date", "yhat_hybrid": "forecast"}
+    should_train = not (
+        os.path.exists(prophet_path)
+        and os.path.exists(lstm_path)
+        and os.path.exists(scaler_path)
     )
 
-    return output.to_dict(orient="records")
+    if should_train:
+        print(f"[INFO] Training hybrid model for {county}")
+        prophet_model = Prophet()
+        prophet_model.fit(df)
 
-def evaluate_hybrid_model():
-    df = load_er_data()
-    prophet_model = joblib.load("trained_models/prophet_model.pkl")
-    lstm_model = tf.keras.models.load_model("trained_models/lstm_model.keras")
+        forecast = prophet_model.predict(df[["ds"]])
+        merged = df.merge(forecast[["ds", "yhat"]], on="ds", how="inner")
+        residuals = merged["y"] - merged["yhat"]
 
-    forecast = prophet_model.predict(df[["ds"]])
-    merged = df.merge(forecast[["ds", "yhat"]], on="ds", how="inner")
-    residuals = merged["y"] - merged["yhat"]
+        X, y, scaler = prepare_lstm_data(residuals)
 
-    X, y_true, scaler = prepare_lstm_training_data(residuals)
-    y_pred_scaled = lstm_model.predict(X, verbose=0)
-    y_pred = scaler.inverse_transform(y_pred_scaled).flatten()
+        lstm_model = Sequential()
+        lstm_model.add(LSTM(50, activation='relu', input_shape=(X.shape[1], 1)))
+        lstm_model.add(Dense(1))
+        lstm_model.compile(optimizer='adam', loss='mse')
+        lstm_model.fit(X, y, epochs=75, batch_size=16, verbose=0)
 
-    prophet_yhat = merged["yhat"].values[-len(y_pred):]
-    hybrid_yhat = prophet_yhat + y_pred
-    actual_y = merged["y"].values[-len(y_pred):]
-
-    mae = mean_absolute_error(actual_y, hybrid_yhat)
-    return mae
+        joblib.dump(prophet_model, prophet_path)
+        joblib.dump(scaler, scaler_path)
+        lstm_model.save(lstm_path)
+    else:
+        print(f"[INFO] Model for {county} already exists. Skipping training.")
 
 if __name__ == "__main__":
-    result = predict_hybrid()
-    for row in result:
-        print(row)
-
-    mae_score = evaluate_hybrid_model()
-    print(f"\nHybrid Model MAE on historical data: {mae_score:.2f}")
+    for county in COUNTIES:
+        train_hybrid_model(county, days_ahead=7)
